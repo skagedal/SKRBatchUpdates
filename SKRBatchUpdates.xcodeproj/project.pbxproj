@@ -10,6 +10,7 @@
 		F4CF9D131E73FDA8008AEA52 /* SKRBatchUpdates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CF9D091E73FDA8008AEA52 /* SKRBatchUpdates.framework */; };
 		F4CF9D181E73FDA8008AEA52 /* SKRBatchUpdatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D171E73FDA8008AEA52 /* SKRBatchUpdatesTests.swift */; };
 		F4CF9D1A1E73FDA8008AEA52 /* SKRBatchUpdates.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CF9D0C1E73FDA8008AEA52 /* SKRBatchUpdates.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F4CF9D241E73FF19008AEA52 /* BatchChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D231E73FF19008AEA52 /* BatchChanges.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +30,7 @@
 		F4CF9D121E73FDA8008AEA52 /* SKRBatchUpdatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SKRBatchUpdatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4CF9D171E73FDA8008AEA52 /* SKRBatchUpdatesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKRBatchUpdatesTests.swift; sourceTree = "<group>"; };
 		F4CF9D191E73FDA8008AEA52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4CF9D231E73FF19008AEA52 /* BatchChanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchChanges.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		F4CF9D0B1E73FDA8008AEA52 /* SKRBatchUpdates */ = {
 			isa = PBXGroup;
 			children = (
+				F4CF9D231E73FF19008AEA52 /* BatchChanges.swift */,
 				F4CF9D0C1E73FDA8008AEA52 /* SKRBatchUpdates.h */,
 				F4CF9D0D1E73FDA8008AEA52 /* Info.plist */,
 			);
@@ -149,6 +152,7 @@
 					F4CF9D081E73FDA8008AEA52 = {
 						CreatedOnToolsVersion = 8.2;
 						DevelopmentTeam = HLC422N3AR;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					F4CF9D111E73FDA8008AEA52 = {
@@ -198,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4CF9D241E73FF19008AEA52 /* BatchChanges.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +327,7 @@
 		F4CF9D1E1E73FDA8008AEA52 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HLC422N3AR;
@@ -334,6 +340,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = net.helgo.simon.SKRBatchUpdates;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -341,6 +348,7 @@
 		F4CF9D1F1E73FDA8008AEA52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HLC422N3AR;
@@ -360,6 +368,7 @@
 		F4CF9D211E73FDA8008AEA52 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = HLC422N3AR;
 				INFOPLIST_FILE = SKRBatchUpdatesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -372,6 +381,7 @@
 		F4CF9D221E73FDA8008AEA52 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = HLC422N3AR;
 				INFOPLIST_FILE = SKRBatchUpdatesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
