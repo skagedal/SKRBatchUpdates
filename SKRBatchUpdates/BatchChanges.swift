@@ -28,12 +28,16 @@ struct BatchChanges {
 
 // MARK: - Data source
 
-class DataSource<SectionType: Hashable, ItemType: Hashable> {
+public class DataSource<SectionType: Hashable, ItemType: Hashable> {
+
+    public init() {
+    }
+    
     var sections: [(SectionType, [ItemType])] = []
 
     var halfTimeItemCounts: [Int]? = nil
     
-    func numberOfSections() -> Int {
+    public func numberOfSections() -> Int {
         if let rowCounts = halfTimeItemCounts {
             return rowCounts.count
         } else {
@@ -41,7 +45,7 @@ class DataSource<SectionType: Hashable, ItemType: Hashable> {
         }
     }
     
-    func numberOfRows(in section: Int) -> Int {
+    public func numberOfRows(in section: Int) -> Int {
         if let rowCounts = halfTimeItemCounts {
             return rowCounts[section]
         } else {
@@ -50,7 +54,20 @@ class DataSource<SectionType: Hashable, ItemType: Hashable> {
         }
     }
     
-    func animate(to sections: [(SectionType, [ItemType])], in tableView: UITableView, with animation: UITableViewRowAnimation) {
+    public func section(at sectionIndex: Int) -> SectionType {
+        let (section, _) = sections[sectionIndex]
+        return section
+    }
+    
+    public func itemForRow(at indexPath: IndexPath) -> ItemType {
+        guard halfTimeItemCounts == nil else {
+            fatalError("Cells are expected to not be accessed in this state")
+        }
+        let (_, items) = sections[indexPath.section]
+        return items[indexPath.item]
+    }
+    
+    public func animate(to sections: [(SectionType, [ItemType])], in tableView: UITableView, with animation: UITableViewRowAnimation) {
         let changes = BatchChanges(from: self.sections, to: sections)
         self.sections = sections
         
