@@ -57,5 +57,57 @@ public class DataSource<SectionType: Hashable, ItemType: Hashable> {
         tableView.updateRows(for: changes, with: animation)
         tableView.endUpdates()
     }
+    
+    public func animate(to sections: [(SectionType, [ItemType])], in collectionView: UICollectionView) {
+        let changes = BatchChanges(from: self.sections, to: sections)
+        self.sections = sections
+
+        halfTimeItemCounts = changes.numberOfItemsInSectionsAfterSectionChanges
+        collectionView.performBatchUpdates({ 
+            collectionView.updateSections(for: changes)
+        }, completion: nil)
+        
+        halfTimeItemCounts = nil
+        collectionView.performBatchUpdates({ 
+            collectionView.updateItems(for: changes)
+        }, completion: nil)
+    }
 }
 
+// MARK: - UIKit Extensions
+
+extension UITableView {
+    func updateRows(for changes: BatchChanges, with animation: UITableViewRowAnimation) {
+        deleteRows(at: changes.itemsToDelete, with: animation)
+        insertRows(at: changes.itemsToInsert, with: animation)
+        for move in changes.itemMoves {
+            moveRow(at: move.source, to: move.destination)
+        }
+    }
+    
+    func updateSections(for changes: BatchChanges, with animation: UITableViewRowAnimation) {
+        deleteSections(changes.sectionsToDelete, with: animation)
+        insertSections(changes.sectionsToInsert, with: animation)
+        for move in changes.sectionMoves {
+            moveSection(move.source, toSection: move.destination)
+        }
+    }
+}
+
+extension UICollectionView {
+    func updateItems(for changes: BatchChanges) {
+        deleteItems(at: changes.itemsToDelete)
+        insertItems(at: changes.itemsToInsert)
+        for move in changes.itemMoves {
+            moveItem(at: move.source, to: move.destination)
+        }
+    }
+    
+    func updateSections(for changes: BatchChanges) {
+        deleteSections(changes.sectionsToDelete)
+        insertSections(changes.sectionsToInsert)
+        for move in changes.sectionMoves {
+            moveSection(move.source, toSection: move.destination)
+        }
+    }
+}

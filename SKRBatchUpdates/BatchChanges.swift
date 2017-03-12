@@ -247,35 +247,3 @@ extension BatchSectionMove: CustomStringConvertible {
     }
 }
 
-// MARK: - UIKit Extensions
-
-extension UITableView {
-    func updateRows(for changes: BatchChanges, with animation: UITableViewRowAnimation) {
-        deleteRows(at: changes.itemsToDelete, with: animation)
-        insertRows(at: changes.itemsToInsert, with: animation)
-        for move in changes.itemMoves {
-            moveRow(at: move.source, to: move.destination)
-        }
-    }
-    
-    func updateSections(for changes: BatchChanges, with animation: UITableViewRowAnimation) {
-        deleteSections(changes.sectionsToDelete, with: animation)
-        insertSections(changes.sectionsToInsert, with: animation)
-        for move in changes.sectionMoves {
-            moveSection(move.source, toSection: move.destination)
-        }
-    }
-    
-    func performChanges(_ changes: BatchChanges, with animation: UITableViewRowAnimation) {
-        print ("Updating sections...")
-        beginUpdates()
-        updateSections(for: changes, with: animation)
-        endUpdates()
-        
-        print("Updating rows...")
-        beginUpdates()
-        updateRows(for: changes, with: animation)
-        endUpdates()
-    }
-}
-

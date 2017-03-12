@@ -40,6 +40,26 @@
                                             <segue destination="6pO-wR-oaG" kind="show" id="dv2-Th-w9a"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="8BK-n2-ijy" style="IBUITableViewCellStyleDefault" id="dvR-N1-1sT">
+                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dvR-N1-1sT" id="BhC-xc-49n">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Collection view with random changes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8BK-n2-ijy">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="L2R-BX-j2f" kind="show" id="zIQ-ug-rBr"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -55,6 +75,62 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fVx-cu-o3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="377" y="101"/>
+        </scene>
+        <!--Random Changes-->
+        <scene sceneID="6aZ-Ai-OPD">
+            <objects>
+                <collectionViewController id="L2R-BX-j2f" customClass="RandomCollectionViewController" customModule="SKRBatchUpdatesDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="eL1-Z1-Uml">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bQe-Li-3A9">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="av9-qs-79o" customClass="LetterCollectionViewCell" customModule="SKRBatchUpdatesDemo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0M-8C-onH">
+                                            <rect key="frame" x="19.5" y="15" width="11.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="n0M-8C-onH" firstAttribute="centerY" secondItem="av9-qs-79o" secondAttribute="centerY" id="3lN-99-pee"/>
+                                    <constraint firstItem="n0M-8C-onH" firstAttribute="centerX" secondItem="av9-qs-79o" secondAttribute="centerX" id="RYB-BY-7F7"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="letterLabel" destination="n0M-8C-onH" id="mOB-hc-fgx"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="L2R-BX-j2f" id="WSi-9v-2WU"/>
+                            <outlet property="delegate" destination="L2R-BX-j2f" id="1Pc-sH-XFE"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Random Changes" id="Dty-42-dCi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Kmh-Og-qef">
+                            <connections>
+                                <action selector="cycleDataSource:" destination="L2R-BX-j2f" id="Coa-lb-UwC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Rw-e7-1xM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1276" y="316"/>
         </scene>
         <!--Random Changes-->
         <scene sceneID="v6q-Kt-M2e">
@@ -98,7 +174,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jhf-vO-hQk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1119" y="100"/>
+            <point key="canvasLocation" x="1276" y="-436"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6Pw-jo-mGQ">
