@@ -15,6 +15,8 @@
 		F4CF9D741E751B75008AEA52 /* RandomTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D731E751B75008AEA52 /* RandomTableViewController.swift */; };
 		F4CF9D7E1E751DE4008AEA52 /* SKRBatchUpdates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4CF9D7B1E751DBC008AEA52 /* SKRBatchUpdates.framework */; };
 		F4CF9D7F1E751DE4008AEA52 /* SKRBatchUpdates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4CF9D7B1E751DBC008AEA52 /* SKRBatchUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4CF9D851E753205008AEA52 /* RandomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */; };
+		F4CF9D881E75324F008AEA52 /* RandomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		F4CF9D5B1E7516FB008AEA52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4CF9D731E751B75008AEA52 /* RandomTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomTableViewController.swift; sourceTree = "<group>"; };
 		F4CF9D751E751DBC008AEA52 /* SKRBatchUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SKRBatchUpdates.xcodeproj; path = ../../SKRBatchUpdates.xcodeproj; sourceTree = "<group>"; };
+		F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewController.swift; sourceTree = "<group>"; };
+		F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,8 @@
 			isa = PBXGroup;
 			children = (
 				F4CF9D731E751B75008AEA52 /* RandomTableViewController.swift */,
+				F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */,
+				F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */,
 			);
 			name = Demos;
 			sourceTree = "<group>";
@@ -228,6 +234,8 @@
 				F4CF9D521E7516FB008AEA52 /* ViewController.swift in Sources */,
 				F4CF9D741E751B75008AEA52 /* RandomTableViewController.swift in Sources */,
 				F4CF9D501E7516FB008AEA52 /* AppDelegate.swift in Sources */,
+				F4CF9D851E753205008AEA52 /* RandomCollectionViewController.swift in Sources */,
+				F4CF9D881E75324F008AEA52 /* RandomDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

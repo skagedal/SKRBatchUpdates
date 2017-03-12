@@ -48,7 +48,9 @@
                             <outlet property="delegate" destination="ZG2-aQ-NbJ" id="IcB-tb-DeQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Batch Update Demos" id="zfy-Qo-L1r"/>
+                    <navigationItem key="navigationItem" title="Batch Update Demos" id="zfy-Qo-L1r">
+                        <barButtonItem key="backBarButtonItem" title="Demos" id="8u0-1P-MSb"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fVx-cu-o3i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
