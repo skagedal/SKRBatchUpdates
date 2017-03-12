@@ -11,6 +11,7 @@
 		F4CF9D181E73FDA8008AEA52 /* SKRBatchUpdatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D171E73FDA8008AEA52 /* SKRBatchUpdatesTests.swift */; };
 		F4CF9D1A1E73FDA8008AEA52 /* SKRBatchUpdates.h in Headers */ = {isa = PBXBuildFile; fileRef = F4CF9D0C1E73FDA8008AEA52 /* SKRBatchUpdates.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F4CF9D241E73FF19008AEA52 /* BatchChanges.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D231E73FF19008AEA52 /* BatchChanges.swift */; };
+		F4CF9D8A1E753607008AEA52 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D891E753607008AEA52 /* DataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		F4CF9D171E73FDA8008AEA52 /* SKRBatchUpdatesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SKRBatchUpdatesTests.swift; sourceTree = "<group>"; };
 		F4CF9D191E73FDA8008AEA52 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4CF9D231E73FF19008AEA52 /* BatchChanges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BatchChanges.swift; sourceTree = "<group>"; };
+		F4CF9D891E753607008AEA52 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 		F4CF9D0B1E73FDA8008AEA52 /* SKRBatchUpdates */ = {
 			isa = PBXGroup;
 			children = (
+				F4CF9D891E753607008AEA52 /* DataSource.swift */,
 				F4CF9D231E73FF19008AEA52 /* BatchChanges.swift */,
 				F4CF9D0C1E73FDA8008AEA52 /* SKRBatchUpdates.h */,
 				F4CF9D0D1E73FDA8008AEA52 /* Info.plist */,
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4CF9D8A1E753607008AEA52 /* DataSource.swift in Sources */,
 				F4CF9D241E73FF19008AEA52 /* BatchChanges.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -410,6 +414,7 @@
 				F4CF9D1F1E73FDA8008AEA52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F4CF9D201E73FDA8008AEA52 /* Build configuration list for PBXNativeTarget "SKRBatchUpdatesTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +423,7 @@
 				F4CF9D221E73FDA8008AEA52 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
