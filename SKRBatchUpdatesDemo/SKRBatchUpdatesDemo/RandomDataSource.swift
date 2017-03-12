@@ -40,6 +40,16 @@ func randomDataSource() -> [(RandomSection, [String])] {
     }
 }
 
+func printRandomDataSource(_ sections: [(RandomSection, [String])]) {
+    print("---")
+    for (section, items) in sections {
+        print("\(section)")
+        for item in items {
+            print(" - \(item)")
+        }
+    }
+}
+
 private extension Array {
     mutating func removeRandom() -> Element {
         return remove(at: count.random())

@@ -9,12 +9,18 @@ class LetterCollectionViewCell: UICollectionViewCell {
     @IBOutlet var letterLabel: UILabel!
 }
 
+class CollectionViewHeader: UICollectionReusableView {
+    @IBOutlet var headerLabel: UILabel!
+}
+
 class RandomCollectionViewController: UICollectionViewController {
 
     let dataSource = DataSource<RandomSection, String>()
 
     @IBAction func cycleDataSource(_ sender: UIBarButtonItem) {
-        dataSource.animate(to: randomDataSource(), in: collectionView!)
+        let random = randomDataSource()
+        dataSource.animate(to: random, in: collectionView!)
+        printRandomDataSource(random)
     }
 
     // MARK: - UICollectionViewDataSource
@@ -38,5 +44,11 @@ class RandomCollectionViewController: UICollectionViewController {
         return cell
     }
     
-
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? CollectionViewHeader else {
+            fatalError("bad header cell")
+        }
+        header.headerLabel.text = "\(dataSource.section(at: indexPath.section))"
+        return header
+    }
 }

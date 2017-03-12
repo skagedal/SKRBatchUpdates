@@ -10,7 +10,9 @@ class RandomTableViewController: UITableViewController {
     let dataSource = DataSource<RandomSection, String>()
 
     @IBAction func cycleDataSource(_ sender: UIBarButtonItem) {
-        dataSource.animate(to: randomDataSource(), in: tableView, with: .fade)
+        let random = randomDataSource()
+        dataSource.animate(to: random, in: tableView, with: .fade)
+        printRandomDataSource(random)
     }
     
     // MARK: - UITableViewDataSource
