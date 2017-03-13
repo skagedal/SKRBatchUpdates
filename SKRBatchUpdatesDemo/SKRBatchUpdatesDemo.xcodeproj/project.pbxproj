@@ -17,6 +17,9 @@
 		F4CF9D7F1E751DE4008AEA52 /* SKRBatchUpdates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4CF9D7B1E751DBC008AEA52 /* SKRBatchUpdates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4CF9D851E753205008AEA52 /* RandomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */; };
 		F4CF9D881E75324F008AEA52 /* RandomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */; };
+		F4CF9D8C1E756508008AEA52 /* Tetris.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D8B1E756508008AEA52 /* Tetris.swift */; };
+		F4CF9D8E1E766A23008AEA52 /* TetrisCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D8D1E766A23008AEA52 /* TetrisCollectionViewController.swift */; };
+		F4CF9D901E76713B008AEA52 /* Tetris.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4CF9D8F1E76713B008AEA52 /* Tetris.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +72,9 @@
 		F4CF9D751E751DBC008AEA52 /* SKRBatchUpdates.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SKRBatchUpdates.xcodeproj; path = ../../SKRBatchUpdates.xcodeproj; sourceTree = "<group>"; };
 		F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewController.swift; sourceTree = "<group>"; };
 		F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomDataSource.swift; sourceTree = "<group>"; };
+		F4CF9D8B1E756508008AEA52 /* Tetris.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tetris.swift; sourceTree = "<group>"; };
+		F4CF9D8D1E766A23008AEA52 /* TetrisCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TetrisCollectionViewController.swift; sourceTree = "<group>"; };
+		F4CF9D8F1E76713B008AEA52 /* Tetris.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tetris.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,9 @@
 				F4CF9D731E751B75008AEA52 /* RandomTableViewController.swift */,
 				F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */,
 				F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */,
+				F4CF9D8D1E766A23008AEA52 /* TetrisCollectionViewController.swift */,
+				F4CF9D8B1E756508008AEA52 /* Tetris.swift */,
+				F4CF9D8F1E76713B008AEA52 /* Tetris.storyboard */,
 			);
 			name = Demos;
 			sourceTree = "<group>";
@@ -221,6 +230,7 @@
 				F4CF9D5A1E7516FB008AEA52 /* LaunchScreen.storyboard in Resources */,
 				F4CF9D571E7516FB008AEA52 /* Assets.xcassets in Resources */,
 				F4CF9D551E7516FB008AEA52 /* Main.storyboard in Resources */,
+				F4CF9D901E76713B008AEA52 /* Tetris.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,9 +243,11 @@
 			files = (
 				F4CF9D521E7516FB008AEA52 /* ViewController.swift in Sources */,
 				F4CF9D741E751B75008AEA52 /* RandomTableViewController.swift in Sources */,
+				F4CF9D8C1E756508008AEA52 /* Tetris.swift in Sources */,
 				F4CF9D501E7516FB008AEA52 /* AppDelegate.swift in Sources */,
 				F4CF9D851E753205008AEA52 /* RandomCollectionViewController.swift in Sources */,
 				F4CF9D881E75324F008AEA52 /* RandomDataSource.swift in Sources */,
+				F4CF9D8E1E766A23008AEA52 /* TetrisCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

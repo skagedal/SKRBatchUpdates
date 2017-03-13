@@ -9,7 +9,7 @@ public class DataSource<SectionType: Hashable, ItemType: Hashable> {
     public init() {
     }
     
-    var sections: [(SectionType, [ItemType])] = []
+    public var sections: [(SectionType, [ItemType])] = []
     
     var halfTimeItemCounts: [Int]? = nil
     
@@ -68,7 +68,7 @@ public class DataSource<SectionType: Hashable, ItemType: Hashable> {
         }, completion: nil)
         
         halfTimeItemCounts = nil
-        collectionView.performBatchUpdates({ 
+        collectionView.performBatchUpdates({
             collectionView.updateItems(for: changes)
         }, completion: nil)
     }
