@@ -26,11 +26,7 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func play(_ sender: Any) {
         startGame()
-        let timer = Timer(fire: Date(), interval: 0.5, repeats: true) {_ in
-            self.tick()
-        }
-        RunLoop.current.add(timer, forMode: .defaultRunLoopMode)
-        self.timer = timer
+        startTimer()
     }
     
     @IBAction func moveLeft(_ sender: UIBarButtonItem) {
@@ -59,28 +55,15 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func drop(_ sender: UIBarButtonItem) {
         if game.drop() {
-            update()
+            stopTimer()
+            update(completion: { _ in
+                self.startTimer()
+            })
         }
     }
     
-    // MARK: - UICollectionViewDataSource
+    // Game logic
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return dataSource.numberOfSections()
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataSource.numberOfRows(in: section)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let block = dataSource.itemForRow(at: indexPath)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
-        cell.configure(with: block)
-        
-        return cell
-    }
-
     func startGame() {
         spawnOrGameOver()
     }
@@ -105,8 +88,39 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
         }
     }
     
-    func update() {
-        dataSource.animate(to: game.currentBoard.dataSource, in: collectionView)
+    func update(completion: ((Bool) -> Swift.Void)? = nil) {
+        dataSource.animate(to: game.currentBoard.dataSource, in: collectionView, completion: completion)
+    }
+
+    func startTimer() {
+        let timer = Timer(fire: Date(), interval: 0.5, repeats: true) {_ in
+            self.tick()
+        }
+        RunLoop.current.add(timer, forMode: .defaultRunLoopMode)
+        self.timer = timer
+    }
+    
+    func stopTimer() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    // MARK: - UICollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return dataSource.numberOfSections()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSource.numberOfRows(in: section)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let block = dataSource.itemForRow(at: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.configure(with: block)
+        
+        return cell
     }
 }
 
