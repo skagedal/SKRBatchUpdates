@@ -58,9 +58,10 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
     }
     
     @IBAction func drop(_ sender: UIBarButtonItem) {
+        if game.drop() {
+            update()
+        }
     }
-    
-
     
     // MARK: - UICollectionViewDataSource
     
@@ -85,9 +86,13 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
     }
     
     func tick() {
-        if game.tick() {
+        if game.down() {
             update()
         } else {
+            game.fixBlock()
+            if game.removeLines() {
+                update()
+            }
             spawnOrGameOver()
         }
     }

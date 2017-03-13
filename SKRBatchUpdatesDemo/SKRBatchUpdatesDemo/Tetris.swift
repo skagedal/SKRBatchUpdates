@@ -125,6 +125,10 @@ extension TetrisRow {
         blocks[index] = block
         return TetrisRow(identifier: identifier, blocks: blocks)
     }
+    
+    var hasEmptyBlocks: Bool {
+        return blocks.contains(where: { $0.isEmpty })
+    }
 }
 
 // MARK: Board
@@ -244,7 +248,7 @@ class TetrisGame {
         return false
     }
     
-    func tick() -> Bool {
+    func down() -> Bool {
         return tryToPlace(currentShape, x: x, y: y + 1)
     }
     
@@ -262,6 +266,31 @@ class TetrisGame {
 
     func rotateRight() -> Bool {
         return tryToPlace(rotatedClockwise(currentShape), x: x, y: y)
+    }
+
+    func drop() -> Bool {
+        if !down() {
+            return false
+        }
+        while (down()) { }
+        return true
+    }
+    
+    func fixBlock() {
+        guard let board = staticBoard.place(currentShape, x: x, y: y) else {
+            fatalError("Current block in a position where it can't be.")
+        }
+        staticBoard = board
+    }
+    
+    func removeLines() -> Bool {
+        let rows = staticBoard.rows.filter { $0.hasEmptyBlocks }
+        if rows.count < tetrisRows {
+            let newLines = (tetrisRows - rows.count).repetitions(blockFactory.emptyRow)
+            staticBoard = TetrisBoard(rows: newLines + rows)
+            return true
+        }
+        return false
     }
     
     func tryToPlace(_ shape: [[TetrisBlock?]], x: Int, y: Int) -> Bool {
