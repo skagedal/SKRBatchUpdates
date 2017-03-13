@@ -58,7 +58,7 @@ public class DataSource<SectionType: Hashable, ItemType: Hashable> {
         tableView.endUpdates()
     }
     
-    public func animate(to sections: [(SectionType, [ItemType])], in collectionView: UICollectionView) {
+    public func animate(to sections: [(SectionType, [ItemType])], in collectionView: UICollectionView, completion: ((Bool) -> Void)? = nil) {
         let changes = BatchChanges(from: self.sections, to: sections)
         self.sections = sections
 
@@ -70,7 +70,7 @@ public class DataSource<SectionType: Hashable, ItemType: Hashable> {
         halfTimeItemCounts = nil
         collectionView.performBatchUpdates({
             collectionView.updateItems(for: changes)
-        }, completion: nil)
+        }, completion: completion)
     }
 }
 
