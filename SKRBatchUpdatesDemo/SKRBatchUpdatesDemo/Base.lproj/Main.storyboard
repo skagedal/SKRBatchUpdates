@@ -120,7 +120,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0M-8C-onH">
-                                            <rect key="frame" x="19.5" y="15" width="11.5" height="21"/>
+                                            <rect key="frame" x="19" y="15" width="12" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -175,7 +175,7 @@
         <!--Tetris-->
         <scene sceneID="NvL-SN-CZ2">
             <objects>
-                <viewControllerPlaceholder storyboardName="Tetris" id="UzH-Kq-ItQ" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="Tetris" storyboardName="Tetris" id="UzH-Kq-ItQ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TDY-au-pzA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1030" y="708"/>
@@ -227,13 +227,17 @@
         <!--Navigation Controller-->
         <scene sceneID="6Pw-jo-mGQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eNp-ej-Ig3" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="eNp-ej-Ig3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XaS-GX-KU7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="vGd-v0-6bC">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="ZG2-aQ-NbJ" kind="relationship" relationship="rootViewController" id="7Wp-vL-BNJ"/>
                     </connections>

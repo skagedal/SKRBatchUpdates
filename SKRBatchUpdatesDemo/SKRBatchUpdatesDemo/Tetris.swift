@@ -245,10 +245,31 @@ class TetrisGame {
     }
     
     func tick() -> Bool {
-        y += 1
-        
-        if let board = staticBoard.place(currentShape, x: x, y: y) {
+        return tryToPlace(currentShape, x: x, y: y + 1)
+    }
+    
+    func left() -> Bool {
+        return tryToPlace(currentShape, x: x - 1, y: y)
+    }
+    
+    func right() -> Bool {
+        return tryToPlace(currentShape, x: x + 1, y: y)
+    }
+
+    func rotateLeft() -> Bool {
+        return tryToPlace(rotatedCounterClockwise(currentShape), x: x, y: y)
+    }
+
+    func rotateRight() -> Bool {
+        return tryToPlace(rotatedClockwise(currentShape), x: x, y: y)
+    }
+    
+    func tryToPlace(_ shape: [[TetrisBlock?]], x: Int, y: Int) -> Bool {
+        if let board = staticBoard.place(shape, x: x, y: y) {
             currentBoard = board
+            currentShape = shape
+            self.x = x
+            self.y = y
             return true
         }
         return false

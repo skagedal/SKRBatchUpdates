@@ -18,7 +18,7 @@
 		F4CF9D851E753205008AEA52 /* RandomCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */; };
 		F4CF9D881E75324F008AEA52 /* RandomDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */; };
 		F4CF9D8C1E756508008AEA52 /* Tetris.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D8B1E756508008AEA52 /* Tetris.swift */; };
-		F4CF9D8E1E766A23008AEA52 /* TetrisCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D8D1E766A23008AEA52 /* TetrisCollectionViewController.swift */; };
+		F4CF9D8E1E766A23008AEA52 /* TetrisViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4CF9D8D1E766A23008AEA52 /* TetrisViewController.swift */; };
 		F4CF9D901E76713B008AEA52 /* Tetris.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4CF9D8F1E76713B008AEA52 /* Tetris.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +73,7 @@
 		F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomCollectionViewController.swift; sourceTree = "<group>"; };
 		F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomDataSource.swift; sourceTree = "<group>"; };
 		F4CF9D8B1E756508008AEA52 /* Tetris.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tetris.swift; sourceTree = "<group>"; };
-		F4CF9D8D1E766A23008AEA52 /* TetrisCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TetrisCollectionViewController.swift; sourceTree = "<group>"; };
+		F4CF9D8D1E766A23008AEA52 /* TetrisViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TetrisViewController.swift; sourceTree = "<group>"; };
 		F4CF9D8F1E76713B008AEA52 /* Tetris.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tetris.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,7 +126,7 @@
 				F4CF9D731E751B75008AEA52 /* RandomTableViewController.swift */,
 				F4CF9D841E753205008AEA52 /* RandomCollectionViewController.swift */,
 				F4CF9D871E75324F008AEA52 /* RandomDataSource.swift */,
-				F4CF9D8D1E766A23008AEA52 /* TetrisCollectionViewController.swift */,
+				F4CF9D8D1E766A23008AEA52 /* TetrisViewController.swift */,
 				F4CF9D8B1E756508008AEA52 /* Tetris.swift */,
 				F4CF9D8F1E76713B008AEA52 /* Tetris.storyboard */,
 			);
@@ -247,7 +247,7 @@
 				F4CF9D501E7516FB008AEA52 /* AppDelegate.swift in Sources */,
 				F4CF9D851E753205008AEA52 /* RandomCollectionViewController.swift in Sources */,
 				F4CF9D881E75324F008AEA52 /* RandomDataSource.swift in Sources */,
-				F4CF9D8E1E766A23008AEA52 /* TetrisCollectionViewController.swift in Sources */,
+				F4CF9D8E1E766A23008AEA52 /* TetrisViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

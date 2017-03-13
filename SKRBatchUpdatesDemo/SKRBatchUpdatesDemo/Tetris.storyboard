@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PRK-Sl-q1e">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Kan-9X-oe6">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,55 +10,94 @@
     </dependencies>
     <scenes>
         <!--Tetris-->
-        <scene sceneID="hHH-rU-aaO">
+        <scene sceneID="BZ7-wV-8E7">
             <objects>
-                <collectionViewController id="PRK-Sl-q1e" customClass="TetrisCollectionViewController" customModule="SKRBatchUpdatesDemo" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="XLf-YV-3LO">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Kan-9X-oe6" customClass="TetrisViewController" customModule="SKRBatchUpdatesDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Qqp-ZT-f06"/>
+                        <viewControllerLayoutGuide type="bottom" id="PnX-Ic-ILW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="S0N-eg-ILS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="opr-Hb-b9B">
+                                <rect key="frame" x="62" y="71.5" width="250" height="500"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="500" id="FKy-qz-mgk"/>
+                                    <constraint firstAttribute="width" constant="250" id="QVx-tD-lF6"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="6CI-g7-zIP">
+                                    <size key="itemSize" width="25" height="25"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="ryx-ia-CiJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ymk-kk-Nnw">
-                            <size key="itemSize" width="30" height="30"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="V5W-3z-zlf">
-                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </view>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="PRK-Sl-q1e" id="dIn-rP-QE0"/>
-                            <outlet property="delegate" destination="PRK-Sl-q1e" id="hZl-AG-z83"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="Tetris" id="Ane-HY-FOQ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="h5p-TT-fmo">
+                        <constraints>
+                            <constraint firstItem="opr-Hb-b9B" firstAttribute="centerY" secondItem="S0N-eg-ILS" secondAttribute="centerY" constant="10" id="8wg-qw-PiR"/>
+                            <constraint firstItem="opr-Hb-b9B" firstAttribute="centerX" secondItem="S0N-eg-ILS" secondAttribute="centerX" id="N3c-ky-esh"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="⬅️" id="mKi-1L-sYl">
                             <connections>
-                                <action selector="newGame:" destination="PRK-Sl-q1e" id="tE8-S9-maz"/>
+                                <action selector="moveLeft:" destination="Kan-9X-oe6" id="rTR-Ix-60Q"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="ZLV-2N-QWP"/>
+                        <barButtonItem title="↪️" id="FxV-sE-K5F">
+                            <connections>
+                                <action selector="rotateLeft:" destination="Kan-9X-oe6" id="dgt-mr-1EC"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="uqM-Wz-mVI"/>
+                        <barButtonItem title="⬇️" id="w0j-Ts-J8W">
+                            <connections>
+                                <action selector="drop:" destination="Kan-9X-oe6" id="YkL-CI-7ZA"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="f5F-Hr-69z"/>
+                        <barButtonItem title="↩️" id="mdf-PV-Xkx">
+                            <connections>
+                                <action selector="rotateRight:" destination="Kan-9X-oe6" id="V6L-Xz-AdX"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="PAn-SR-cek"/>
+                        <barButtonItem title="➡️" id="14S-yN-g5h">
+                            <connections>
+                                <action selector="moveRight:" destination="Kan-9X-oe6" id="eQj-5F-MQm"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Tetris" id="PMB-gV-1Oe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="play" id="Xqv-g2-dpo">
+                            <connections>
+                                <action selector="play:" destination="Kan-9X-oe6" id="u8s-8Y-RHu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Z59-0h-90N" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="ZHs-4J-uhr">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <items>
-                        <barButtonItem title="Item" systemItem="rewind" id="OZc-Io-c8J"/>
-                        <barButtonItem systemItem="fastForward" id="evb-Ck-UM5"/>
-                    </items>
-                </toolbar>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <connections>
+                        <outlet property="collectionView" destination="opr-Hb-b9B" id="bSa-eO-ddl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bJC-xR-kC0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="168.80000000000001" y="102.99850074962519"/>
+            <point key="canvasLocation" x="1252" y="103"/>
         </scene>
     </scenes>
 </document>
