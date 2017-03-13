@@ -26,7 +26,6 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
     
     @IBAction func play(_ sender: Any) {
         startGame()
-        startTimer()
     }
     
     @IBAction func moveLeft(_ sender: UIBarButtonItem) {
@@ -65,7 +64,9 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
     // Game logic
     
     func startGame() {
+        game = TetrisGame()
         spawnOrGameOver()
+        startTimer()
     }
     
     func tick() {
@@ -84,8 +85,12 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
         if game.spawn() {
             update()
         } else {
-            print("game over!")
+            gameOver()
         }
+    }
+    
+    func gameOver() {
+        stopTimer()
     }
     
     func update(completion: ((Bool) -> Swift.Void)? = nil) {
@@ -93,6 +98,9 @@ class TetrisViewController: UIViewController, UICollectionViewDataSource {
     }
 
     func startTimer() {
+        if let timer = self.timer {
+            timer.invalidate()
+        }
         let timer = Timer(fire: Date(), interval: 0.5, repeats: true) {_ in
             self.tick()
         }
