@@ -100,36 +100,34 @@ private extension Sequence where Iterator.Element: Sequence, Iterator.Element.It
 
 extension BatchSectionChanges {
     func apply<ItemType>(to items: [[ItemType]]) -> [[ItemType]] {
-        let deletes = Set(sectionsToDelete + sectionMoves.map { $0.source })
-        let inserts = Set(sectionsToInsert)
+        let newCount = items.count + sectionsToInsert.count - sectionsToDelete.count
+
+        let movedIndices = sectionMoves.destinationToSourceDictionary()
+        let deletedIndices = Set(sectionsToDelete + sectionMoves.map { $0.source })
+        var unchangedIndices = items.indices.lazy.filter({ !deletedIndices.contains($0) }).makeIterator()
+        
+        return (0..<newCount).map { index in
+            if let source = movedIndices[index] {
+                return items[source]
+            } else if sectionsToInsert.contains(index) {
+                return []
+            } else {
+                guard let oldIndex = unchangedIndices.next() else {
+                    fatalError("Mismatching internal state in BatchSectionChanges: \(self)")
+                }
+                return items[oldIndex]
+            }
+        }
+    }
+}
+
+extension Sequence where Iterator.Element == BatchSectionMove {
+    func destinationToSourceDictionary() -> [Int: Int] {
         var moves: [Int: Int] = [:]
-        for move in sectionMoves {
+        for move in self {
             moves[move.destination] = move.source
         }
-        
-        var output: [[ItemType]] = []
-        for (oldIndex, item) in items.enumerated() {
-            let newIndex = output.count
-            if let source = moves[newIndex] {
-                output.append(items[source])
-            } else if inserts.contains(newIndex) {
-                output.append([])
-            }
-            if !deletes.contains(oldIndex) {
-                output.append(item)
-            }
-        }
-        
-        while moves[output.count] != nil || inserts.contains(output.count) {
-            let newIndex = output.count
-            if let source = moves[newIndex] {
-                output.append(items[source])
-            } else if inserts.contains(newIndex) {
-                output.append([])
-            }
-        }
-
-        return output
+        return moves
     }
 }
 
