@@ -44,32 +44,44 @@ public class DataSource<SectionType: Hashable, ItemType: Hashable> {
     }
     
     public func animate(to sections: [(SectionType, [ItemType])], in tableView: UITableView, with animation: UITableViewRowAnimation) {
-        let changes = BatchChanges(from: self.sections, to: sections)
+        let (oldSections, oldItems) = unzip(self.sections)
+        let (newSections, newItems) = unzip(sections)
+
         self.sections = sections
+
+        let sectionChanges = BatchSectionChanges(from: oldSections, to: newSections)
+        let patchedItems = sectionChanges.apply(to: oldItems)
+        let itemChanges = BatchItemChanges(from: patchedItems, to: newItems)
         
-        halfTimeItemCounts = changes.numberOfItemsInSectionsAfterSectionChanges
+        halfTimeItemCounts = patchedItems.map { $0.count }
         tableView.beginUpdates()
-        tableView.updateSections(for: changes, with: animation)
+        tableView.updateSections(for: sectionChanges, with: animation)
         tableView.endUpdates()
         
         halfTimeItemCounts = nil
         tableView.beginUpdates()
-        tableView.updateRows(for: changes, with: animation)
+        tableView.updateRows(for: itemChanges, with: animation)
         tableView.endUpdates()
     }
     
     public func animate(to sections: [(SectionType, [ItemType])], in collectionView: UICollectionView, completion: ((Bool) -> Void)? = nil) {
-        let changes = BatchChanges(from: self.sections, to: sections)
+        let (oldSections, oldItems) = unzip(self.sections)
+        let (newSections, newItems) = unzip(sections)
+        
         self.sections = sections
-
-        halfTimeItemCounts = changes.numberOfItemsInSectionsAfterSectionChanges
-        collectionView.performBatchUpdates({ 
-            collectionView.updateSections(for: changes)
+        
+        let sectionChanges = BatchSectionChanges(from: oldSections, to: newSections)
+        let patchedItems = sectionChanges.apply(to: oldItems)
+        let itemChanges = BatchItemChanges(from: patchedItems, to: newItems)
+        
+        halfTimeItemCounts = patchedItems.map { $0.count }
+        collectionView.performBatchUpdates({
+            collectionView.updateSections(for: sectionChanges)
         }, completion: nil)
         
         halfTimeItemCounts = nil
         collectionView.performBatchUpdates({
-            collectionView.updateItems(for: changes)
+            collectionView.updateItems(for: itemChanges)
         }, completion: completion)
     }
 }
@@ -77,7 +89,7 @@ public class DataSource<SectionType: Hashable, ItemType: Hashable> {
 // MARK: - UIKit Extensions
 
 extension UITableView {
-    func updateRows(for changes: BatchChanges, with animation: UITableViewRowAnimation) {
+    func updateRows(for changes: BatchItemChanges, with animation: UITableViewRowAnimation) {
         deleteRows(at: changes.itemsToDelete, with: animation)
         insertRows(at: changes.itemsToInsert, with: animation)
         for move in changes.itemMoves {
@@ -85,7 +97,7 @@ extension UITableView {
         }
     }
     
-    func updateSections(for changes: BatchChanges, with animation: UITableViewRowAnimation) {
+    func updateSections(for changes: BatchSectionChanges, with animation: UITableViewRowAnimation) {
         deleteSections(changes.sectionsToDelete, with: animation)
         insertSections(changes.sectionsToInsert, with: animation)
         for move in changes.sectionMoves {
@@ -95,7 +107,7 @@ extension UITableView {
 }
 
 extension UICollectionView {
-    func updateItems(for changes: BatchChanges) {
+    func updateItems(for changes: BatchItemChanges) {
         deleteItems(at: changes.itemsToDelete)
         insertItems(at: changes.itemsToInsert)
         for move in changes.itemMoves {
@@ -103,7 +115,7 @@ extension UICollectionView {
         }
     }
     
-    func updateSections(for changes: BatchChanges) {
+    func updateSections(for changes: BatchSectionChanges) {
         deleteSections(changes.sectionsToDelete)
         insertSections(changes.sectionsToInsert)
         for move in changes.sectionMoves {
@@ -111,3 +123,15 @@ extension UICollectionView {
         }
     }
 }
+
+// MARK: - Helpers
+
+private func unzip<T, U>(_ array: [(T, U)]) -> ([T], [U]) {
+    var t: [T] = [], u: [U] = []
+    for (a, b) in array {
+        t.append(a)
+        u.append(b)
+    }
+    return (t, u)
+}
+

@@ -14,128 +14,35 @@ struct BatchItemMove {
     let destination: IndexPath
 }
 
-struct BatchChanges {
+struct BatchSectionChanges {
     let sectionsToDelete: IndexSet
     let sectionsToInsert: IndexSet
     let sectionMoves: [BatchSectionMove]
-    
+}
+
+struct BatchItemChanges {
     let itemsToDelete: [IndexPath]
     let itemsToInsert: [IndexPath]
     let itemMoves: [BatchItemMove]
-    
-    let numberOfItemsInSectionsAfterSectionChanges: [Int]
 }
 
-// MARK: - Version with not hashables
+// MARK: - Diffing for hashable items and sections
 
-extension BatchChanges {
-    init<SectionType, ItemType>(from old: [(SectionType, [ItemType])], to new: [(SectionType, [ItemType])], sectionPredicate: (SectionType, SectionType) -> Bool, itemPredicate: (ItemType, ItemType) -> Bool) {
-        
-        let (oldSections, oldItems) = unzip(old)
-        let (newSections, newItems) = unzip(new)
-        
-        let enumeratedOldSections = oldSections.enumerated().map { ($0, $1) }
-        let enumeratedNewSections = newSections.enumerated().map { ($0, $1) }
-        let (sectionsToDelete, sectionsToInsert, sectionMoves) = diff(from: enumeratedOldSections, to: enumeratedNewSections, using: sectionPredicate)
-        
-        let enumeratedOldItems = oldItems.flatIndexPathEnumerated()
-        let enumeratedNewItems = newItems.flatIndexPathEnumerated()
-        let (itemsToDelete, itemsToInsert, itemMoves) = diff(from: enumeratedOldItems, to: enumeratedNewItems, using: itemPredicate)
-        
-        self.init(sectionsToDelete: IndexSet(sectionsToDelete),
-                  sectionsToInsert: IndexSet(sectionsToInsert),
-                  sectionMoves: sectionMoves.map({ BatchSectionMove(source: $0, destination: $1) }),
-                  itemsToDelete: itemsToDelete,
-                  itemsToInsert: itemsToInsert,
-                  itemMoves: itemMoves.map({ BatchItemMove(source: $0, destination: $1) }),
-                  numberOfItemsInSectionsAfterSectionChanges: []
-                  )
+extension BatchSectionChanges {
+    init<SectionType>(from old: [SectionType], to new: [SectionType]) where SectionType: Hashable {
+        let (deletes, inserts, moves) = diff(from: old.indexDictionary(), to: new.indexDictionary())
+        self.init(sectionsToDelete: IndexSet(deletes),
+                  sectionsToInsert: IndexSet(inserts),
+                  sectionMoves: moves.map { BatchSectionMove(source: $0, destination: $1) })
     }
 }
 
-private func diff<IndexType, T>(from old: [(IndexType, T)], to new: [(IndexType, T)], using equals: (T, T) -> Bool) -> ([IndexType], [IndexType], [(IndexType, IndexType)]) where IndexType: Equatable {
-    var deletes: [IndexType] = []
-    var inserts: [IndexType] = []
-    var moves: [(IndexType, IndexType)] = []
-    
-    // Deletes and moves
-    for (oldIndex, element) in old {
-        if let newIndex = index(of: element, in: new, using: equals) {
-            if newIndex != oldIndex {
-                moves.append((oldIndex, newIndex))
-            }
-        } else {
-            deletes.append(oldIndex)
-        }
-    }
-    
-    // Inserts
-    for (newIndex, element) in new {
-        if index(of: element, in: old, using: equals) == nil {
-            inserts.append(newIndex)
-        }
-    }
-    
-    return (deletes, inserts, moves)
-}
-
-private func index<IndexType, T>(of item: T, in enumeratedItems:[(IndexType, T)], using equals: (T, T) -> Bool) -> IndexType? {
-    if let x = enumeratedItems.first(where: { equals($1, item) }) {
-        return x.0
-    } else {
-        return nil
-    }
-}
-
-private extension Sequence where Iterator.Element: Sequence {
-    /// Flattens a sequence of sequences into a sequence of enums with an `IndexPath` for each element. I.e.:
-    ///
-    ///    let x = [["a", "b"], ["c"]].flatIndexPathEnumerated()
-    ///    // x is [([0, 0], "a"), ([0, 1], "b"), ([1, 0], "c")]
-    ///
-    /// (Note that `IndexPath`s are expressible as array literals.)
-    func flatIndexPathEnumerated() -> [(IndexPath, Iterator.Element.Iterator.Element)] {
-        return self.enumerated().flatMap { (section, childSequence) in
-            childSequence.enumerated().map { (item, element) in ([section, item], element) }
-        }
-    }
-}
-
-private func unzip<T, U>(_ array: [(T, U)]) -> ([T], [U]) {
-    var t: [T] = [], u: [U] = []
-    for (a, b) in array {
-        t.append(a)
-        u.append(b)
-    }
-    return (t, u)
-}
-
-// MARK: - Version that needs Hashable elements
-
-extension BatchChanges {
-    init<SectionType, ItemType>(from old: [(SectionType, [ItemType])], to new: [(SectionType, [ItemType])]) where SectionType: Hashable, ItemType: Hashable {
-        let (oldSections, oldItems) = unzip(old)
-        let (newSections, newItems) = unzip(new)
-        
-        let oldSectionsDict = oldSections.indexDictionary()
-        let newSectionsDict = newSections.indexDictionary()
-        let (sectionsToDelete, sectionsToInsert, sectionMoves) = diff(from: oldSectionsDict, to: newSectionsDict)
-
-        let patchedOldItems = applyDiff(to: oldItems, deletes: sectionsToDelete, inserts: sectionsToInsert, moves: sectionMoves)
-        let halfTimeRowCounts = patchedOldItems.map { $0.count }
-        
-        let oldItemsDict = patchedOldItems.indexPathDictionary()
-        let newItemsDict = newItems.indexPathDictionary()
-        let (itemsToDelete, itemsToInsert, itemMoves) = diff(from: oldItemsDict, to: newItemsDict)
-        
-        self.init(sectionsToDelete: IndexSet(sectionsToDelete),
-                  sectionsToInsert: IndexSet(sectionsToInsert),
-                  sectionMoves: sectionMoves.map({ BatchSectionMove(source: $0, destination: $1) }),
-                  itemsToDelete: itemsToDelete,
-                  itemsToInsert: itemsToInsert,
-                  itemMoves: itemMoves.map({ BatchItemMove(source: $0, destination: $1) }),
-                  numberOfItemsInSectionsAfterSectionChanges: halfTimeRowCounts
-                  )
+extension BatchItemChanges {
+    init<ItemType>(from old: [[ItemType]], to new: [[ItemType]]) where ItemType: Hashable {
+        let (deletes, inserts, moves) = diff(from: old.indexPathDictionary(), to: new.indexPathDictionary())
+        self.init(itemsToDelete: deletes,
+                  itemsToInsert: inserts,
+                  itemMoves: moves.map { BatchItemMove(source: $0, destination: $1) })
     }
 }
 
@@ -165,37 +72,6 @@ private func diff<ElementType, IndexType>(from old: [ElementType: IndexType], to
     return (deletes, inserts, moves)
 }
 
-func applyDiff<ItemType>(to input: [[ItemType]], deletes sectionsToDelete: [Int], inserts sectionsToInsert: [Int], moves sectionMoves: [(Int, Int)]) -> [[ItemType]] {
-    let deletes = Set(sectionsToDelete + sectionMoves.map({ $0.0 }))
-    let inserts = Set(sectionsToInsert)
-    var moves: [Int: Int] = [:]
-    for (source, destination) in sectionMoves {
-        moves[destination] = source
-    }
-    
-    var output: [[ItemType]] = []
-    for (oldIndex, item) in input.enumerated() {
-        let newIndex = output.count
-        if let source = moves[newIndex] {
-            output.append(input[source])
-        } else if inserts.contains(newIndex) {
-            output.append([])
-        }
-        if !deletes.contains(oldIndex) {
-            output.append(item)
-        }
-    }
-    while moves[output.count] != nil || inserts.contains(output.count) {
-        let newIndex = output.count
-        if let source = moves[newIndex] {
-            output.append(input[source])
-        } else if inserts.contains(newIndex) {
-            output.append([])
-        }
-    }
-    return output
-}
-
 private extension Sequence where Iterator.Element: Hashable {
     func indexDictionary() -> [Iterator.Element: Int] {
         var dictionary: [Iterator.Element: Int] = [:]
@@ -208,7 +84,7 @@ private extension Sequence where Iterator.Element: Hashable {
 
 private extension Sequence where Iterator.Element: Sequence, Iterator.Element.Iterator.Element: Hashable {
     typealias ItemElement = Iterator.Element.Iterator.Element
-
+    
     func indexPathDictionary() -> [ItemElement: IndexPath] {
         var dictionary: [ItemElement: IndexPath] = [:]
         for (section, items) in self.enumerated() {
@@ -220,20 +96,57 @@ private extension Sequence where Iterator.Element: Sequence, Iterator.Element.It
     }
 }
 
-// MARK: - Debugging
+// MARK: - Applying sections changes to items
 
-extension BatchChanges {
-    func debugPrint() {
-        print("Sections")
-        print(" - Deletes: \(Array<Int>(sectionsToDelete))")
-        print(" - Inserts: \(Array<Int>(sectionsToInsert))")
-        print(" - Moves:   \(sectionMoves)")
-        print("Items")
-        print(" - Deletes: \(itemsToDelete)")
-        print(" - Inserts: \(itemsToInsert)")
-        print(" - Moves:   \(itemMoves)")
+extension BatchSectionChanges {
+    func apply<ItemType>(to items: [[ItemType]]) -> [[ItemType]] {
+        let deletes = Set(sectionsToDelete + sectionMoves.map { $0.source })
+        let inserts = Set(sectionsToInsert)
+        var moves: [Int: Int] = [:]
+        for move in sectionMoves {
+            moves[move.destination] = move.source
+        }
+        
+        var output: [[ItemType]] = []
+        for (oldIndex, item) in items.enumerated() {
+            let newIndex = output.count
+            if let source = moves[newIndex] {
+                output.append(items[source])
+            } else if inserts.contains(newIndex) {
+                output.append([])
+            }
+            if !deletes.contains(oldIndex) {
+                output.append(item)
+            }
+        }
+        
+        while moves[output.count] != nil || inserts.contains(output.count) {
+            let newIndex = output.count
+            if let source = moves[newIndex] {
+                output.append(items[source])
+            } else if inserts.contains(newIndex) {
+                output.append([])
+            }
+        }
+
+        return output
     }
 }
+
+// MARK: - Debugging
+
+//extension BatchChanges {
+//    func debugPrint() {
+//        print("Sections")
+//        print(" - Deletes: \(Array<Int>(sectionsToDelete))")
+//        print(" - Inserts: \(Array<Int>(sectionsToInsert))")
+//        print(" - Moves:   \(sectionMoves)")
+//        print("Items")
+//        print(" - Deletes: \(itemsToDelete)")
+//        print(" - Inserts: \(itemsToInsert)")
+//        print(" - Moves:   \(itemMoves)")
+//    }
+//}
 
 extension BatchItemMove: CustomStringConvertible {
     var description: String {
