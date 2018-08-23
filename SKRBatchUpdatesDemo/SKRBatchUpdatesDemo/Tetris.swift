@@ -222,7 +222,9 @@ class BlockFactory {
 
 class TetrisGame {
     let blockFactory = BlockFactory()
+    /// The board except the currently moving tetromino
     var staticBoard: TetrisBoard
+    /// The board as it is displayed
     var currentBoard: TetrisBoard
 
     var currentShape: [[TetrisBlock?]] = []
