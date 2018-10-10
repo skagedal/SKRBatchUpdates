@@ -13,7 +13,7 @@ let validColumns = (0..<tetrisColumns)
 
 // MARK: Shapes
 
-enum Tetromino {
+enum Tetromino: CaseIterable {
     case I
     case J
     case L
@@ -21,8 +21,6 @@ enum Tetromino {
     case S
     case T
     case Z
-    
-    static let all: [Tetromino] = [.I, .J, .L, .O, .S, .T, .Z]
 }
 
 extension Tetromino {
@@ -237,7 +235,7 @@ class TetrisGame {
     }
 
     func spawn() -> Bool {
-        let tetromino = Tetromino.all.randomPick()
+        let tetromino = Tetromino.allCases.randomPick()
 
         currentShape = blockFactory.shape(from: tetromino.template)
         x = (tetrisColumns - tetromino.template.count) / 2
